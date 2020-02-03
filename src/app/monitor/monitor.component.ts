@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MainService } from '../service/main.service';
-// import * as CanvasJS from './canvasjs.min';
-import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
+import { ChartDataSets } from 'chart.js';
+import { Color, Label } from 'ng2-charts';      // canvasjs.min.js is 130 K smaller
 import { interval } from 'rxjs';
 
 @Component({
@@ -15,49 +14,30 @@ export class MonitorComponent implements OnInit, OnDestroy {
   private intervalSubscription;
 
   lineChartData: ChartDataSets[] = [
-    { data: [85, 72, 78, 75, 77, 75], label: 'Crude oil prices' },
+    {data: [], label: 'Voltage'}
   ];
 
-  lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June'];
+  lineChartLabels: Label[] = [];
 
   lineChartOptions = {
-    responsive: true,
+    responsive: true
   };
 
   lineChartColors: Color[] = [
     {
       borderColor: 'black',
-      backgroundColor: 'rgba(255,255,0,0.28)',
-    },
+      backgroundColor: 'rgba(255,255,0,0.28)'
+    }
   ];
 
   lineChartLegend = true;
   lineChartPlugins = [];
   lineChartType = 'line';
 
-  // private chart;
-  // private dps = [];
-  // private dataLength = 50; // number of dataPoints visible at any point
-
   constructor(private service: MainService) {
   }
 
   ngOnInit(): void {
-    // this.chart = new CanvasJS.Chart('chartContainer', {
-    //   exportEnabled: true,
-    //   title: {
-    //     text: 'Dynamic Spline Chart'
-    //   },
-    //   axisY: {
-    //     includeZero: false
-    //   },
-    //   data: [{
-    //     type: 'spline',
-    //     markerSize: 0,
-    //     dataPoints: this.dps
-    //   }]
-    // });
-
     this.intervalSubscription = interval(this.updateInterval).subscribe(() => {
       this.getData();
     });
@@ -68,16 +48,9 @@ export class MonitorComponent implements OnInit, OnDestroy {
     this.service.getData().subscribe((data) => {
       console.log(data);
 
-      // this.dps.push({
-      //   x: data.time,
-      //   y: data.value
-      // });
-      //
-      // if (this.dps.length > this.dataLength) {
-      //   this.dps.shift();
-      // }
-      //
-      // this.chart.render();
+      this.lineChartLabels.push(data.time);
+      this.lineChartData[0].data.push(data.value);
+
     });   // todo error
   }
 
