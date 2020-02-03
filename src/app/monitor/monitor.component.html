@@ -1,0 +1,13 @@
+<div class="container">
+<!--  <div id="chartContainer" style="height: 370px; width: 90%;"></div>-->
+
+  <canvas baseChart
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          [plugins]="lineChartPlugins">
+  </canvas>
+</div>
