@@ -1,9 +1,16 @@
 <div class="container">
-  <div class="chart-wrapper">
-    <canvas baseChart
-            [data]="doughnutChartData"
-            [labels]="doughnutChartLabels"
-            [chartType]="doughnutChartType">
-    </canvas>
+  <div class="container">
+    <button class="my-button" [ngClass]="{'led-on':isLedOn}" (click)="toggleLedState()">Switch
+      LED {{isLedOn ? 'OFF' : 'ON'}}</button>
+  </div>
+
+  <div class="container">
+    <div class="chart-wrapper">
+      <canvas baseChart
+              [data]="doughnutChartData"
+              [labels]="doughnutChartLabels"
+              [chartType]="doughnutChartType">
+      </canvas>
+    </div>
   </div>
 </div>

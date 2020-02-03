@@ -10,7 +10,7 @@ import { interval } from 'rxjs';
   styleUrls: ['./monitor.component.css']
 })
 export class MonitorComponent implements OnInit, OnDestroy {
-  private updateInterval = 250;
+  private UPDATE_INTERVAL = 250;
   private intervalSubscription;
 
   lineChartData: ChartDataSets[] = [
@@ -38,15 +38,14 @@ export class MonitorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.intervalSubscription = interval(this.updateInterval).subscribe(() => {
+    this.intervalSubscription = interval(this.UPDATE_INTERVAL).subscribe(() => {
       this.getData();
     });
   }
 
   getData() {
-    console.log('subscr');
     this.service.getData().subscribe((data) => {
-      console.log(data);
+      // console.log(data);
 
       this.lineChartLabels.push(data.time);
       this.lineChartData[0].data.push(data.value);

@@ -1,4 +1,4 @@
 export class Wemos {
-  constructor(public time: string, public value: number) {
+  constructor(public ledState: boolean, public time: string, public value: number) {
   }
 }

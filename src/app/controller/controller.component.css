@@ -1,0 +1,17 @@
+.led-on{
+  background-color: yellow;
+  box-shadow: 0 0 20px 10px yellow;
+  border: none;
+}
+
+#ledStatus{
+  display: block;
+}
+
+.container{
+  justify-content: space-around;
+}
+
+.my-button:active {
+  background-color: yellow;
+}
