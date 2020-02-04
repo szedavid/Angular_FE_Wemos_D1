@@ -10,7 +10,8 @@ import { interval } from 'rxjs';
   styleUrls: ['./monitor.component.css']
 })
 export class MonitorComponent implements OnInit, OnDestroy {
-  private UPDATE_INTERVAL = 250;
+  private UPDATE_INTERVAL = 500;
+  public maxDataLength = 50;
   private intervalSubscription;
 
   lineChartData: ChartDataSets[] = [
@@ -26,7 +27,7 @@ export class MonitorComponent implements OnInit, OnDestroy {
   lineChartColors: Color[] = [
     {
       borderColor: 'black',
-      backgroundColor: 'rgba(255,255,0,0.28)'
+      backgroundColor: 'rgba(0,255,0,0.28)'
     }
   ];
 
@@ -44,11 +45,16 @@ export class MonitorComponent implements OnInit, OnDestroy {
   }
 
   getData() {
-    this.service.getData().subscribe((data) => {
+    this.service.getMonitorData().subscribe((data) => {
       // console.log(data);
 
+      const chartDataArray = this.lineChartData[0].data;
       this.lineChartLabels.push(data.time);
-      this.lineChartData[0].data.push(data.value);
+      chartDataArray.push(data.value);
+      while (chartDataArray.length > this.maxDataLength) {
+        chartDataArray.shift();
+        this.lineChartLabels.shift();
+      }
 
     });   // todo error
   }

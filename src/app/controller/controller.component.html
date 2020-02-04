@@ -5,12 +5,17 @@
   </div>
 
   <div class="container">
-    <div class="chart-wrapper">
-      <canvas baseChart
-              [data]="doughnutChartData"
-              [labels]="doughnutChartLabels"
-              [chartType]="doughnutChartType">
-      </canvas>
-    </div>
+    <mwl-gauge
+        [max]="180"
+        [dialStartAngle]="0"
+        [dialEndAngle]="180"
+        [value]=servoAngle
+        [animated]="true"
+        [animationDuration]="0.25">
+    </mwl-gauge>
+
+<!--    no [(ngModel)] used here becouse of periodic received values-->
+    <input #servoSlider type="range" min="0" max="180" [value]=servoAngle
+           (mouseup)="setServo(servoSlider.value)" class="slider">
   </div>
 </div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Wemos } from '../models/wemos.model';
+import { ControllerModel, MonitorModel } from '../models/wemos.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
@@ -11,12 +11,25 @@ export class MainService {
   constructor(private http: HttpClient) {
   }
 
-  getData(): Observable<Wemos> {
-    return this.http.get<Wemos>(`${environment.url}/rest`);
+  getMonitorData(): Observable<MonitorModel> {
+    return this.http.get<MonitorModel>(`${environment.url}/monitor`);
   }
 
-  setLedState(toOn: boolean) {
+  getControllerData(): Observable<ControllerModel> {
+    return this.http.get<ControllerModel>(`${environment.url}/controller`);
+  }
+
+  // setLedState(toOn: boolean) {
+  //   console.log('setled');
+  //   return this.http.get<MonitorModel>(`${environment.url}/${toOn ? 'on' : 'off'}`);
+  // }
+
+  setLedState(ledState: boolean): Observable<ControllerModel> {
     console.log('setled');
-    return this.http.get<Wemos>(`${environment.url}/${toOn ? 'on' : 'off'}`);
+    return this.http.post<ControllerModel>(`${environment.url}/led/${ledState}`, null);
+  }
+
+  setServo(angle: number): Observable<ControllerModel> {
+    return this.http.post<ControllerModel>(`${environment.url}/servo/${angle}`, null);
   }
 }

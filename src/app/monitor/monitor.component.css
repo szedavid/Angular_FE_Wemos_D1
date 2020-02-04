@@ -1,0 +1,10 @@
+.container{
+  flex-direction: column;
+}
+
+.max-setter{
+  padding-left: 20px;
+  padding-right: 20px;
+  display: flex;
+  align-items: center;
+}

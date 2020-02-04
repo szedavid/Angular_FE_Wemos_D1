@@ -1,6 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ChartType } from 'chart.js';
-import { MultiDataSet, Label } from 'ng2-charts';
 import { MainService } from '../service/main.service';
 import { interval } from 'rxjs';
 
@@ -11,14 +9,11 @@ import { interval } from 'rxjs';
 })
 export class ControllerComponent implements OnInit, OnDestroy {
   private UPDATE_INTERVAL = 1000;
-  public isLedOn;
   private intervalSubscription;
 
-  doughnutChartLabels: Label[] = ['BMW', 'Ford', 'Tesla'];
-  doughnutChartData: MultiDataSet = [
-    [55, 25, 20]
-  ];
-  doughnutChartType: ChartType = 'doughnut';
+  // todo change to ControllerModel
+  public isLedOn;
+  public servoAngle;
 
   constructor(private service: MainService) {
   }
@@ -30,12 +25,11 @@ export class ControllerComponent implements OnInit, OnDestroy {
     });
   }
 
-  // todo separate led status from other data
   getData() {
-    this.service.getData().subscribe((data) => {// console.log(data);
+    this.service.getControllerData().subscribe((data) => {// console.log(data);
 
       this.isLedOn = data.ledState;
-
+      this.servoAngle = data.servoAngle;
     });   // todo error
   }
 
@@ -43,10 +37,17 @@ export class ControllerComponent implements OnInit, OnDestroy {
   toggleLedState() {
     this.service.setLedState(!this.isLedOn).subscribe((data) => {
       this.isLedOn = data.ledState;
+      this.servoAngle = data.servoAngle;
     });   // todo error
   }
 
   ngOnDestroy(): void {
     this.intervalSubscription.unsubscribe();
+  }
+
+  setServo(servoAngle) {
+    this.service.setServo(servoAngle).subscribe((data) => {
+      this.servoAngle = data.servoAngle;
+    });  // todo error
   }
 }

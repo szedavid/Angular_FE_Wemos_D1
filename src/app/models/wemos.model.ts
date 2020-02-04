@@ -1,4 +1,9 @@
-export class Wemos {
-  constructor(public ledState: boolean, public time: string, public value: number) {
+export class MonitorModel {
+  constructor(public time: string, public value: number) {
+  }
+}
+
+export class ControllerModel {
+  constructor(public ledState: boolean, public servoAngle: number) {
   }
 }

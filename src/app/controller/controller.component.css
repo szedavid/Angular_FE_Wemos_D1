@@ -1,17 +1,48 @@
-.led-on{
+.container .container{
+  flex-direction: column;
+}
+
+.led-on {
   background-color: yellow;
   box-shadow: 0 0 20px 10px yellow;
   border: none;
 }
 
-#ledStatus{
+#ledStatus {
   display: block;
 }
 
-.container{
+.container {
   justify-content: space-around;
 }
 
 .my-button:active {
   background-color: yellow;
+}
+
+/*gauge*/
+mwl-gauge {
+  width: 150px;
+  height: 75px;
+  display: block;
+  padding: 10px;
+}
+
+mwl-gauge > .gauge > .dial {
+  stroke: #eee;
+  stroke-width: 2;
+  fill: rgba(0, 0, 0, 0);
+}
+
+mwl-gauge > .gauge > .value {
+  stroke: rgb(47, 227, 255);
+  stroke-width: 2;
+  fill: rgba(0, 0, 0, 0);
+}
+
+mwl-gauge > .gauge > .value-text {
+  fill: rgb(47, 227, 255);
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1em;
 }

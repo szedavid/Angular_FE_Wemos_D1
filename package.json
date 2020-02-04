@@ -4,10 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod --output-hashing none",
+    "build": "ng build --prod --output-hashing none --stats-json",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "bundle-report": "webpack-bundle-analyzer dist/wemos/stats.json"
   },
   "private": true,
   "dependencies": {
@@ -19,6 +20,7 @@
     "@angular/platform-browser": "~9.0.0-rc.12",
     "@angular/platform-browser-dynamic": "~9.0.0-rc.12",
     "@angular/router": "~9.0.0-rc.12",
+    "angular-gauge": "^3.1.2",
     "chart.js": "^2.9.3",
     "ng2-charts": "^2.3.0",
     "rxjs": "^6.5.4",
@@ -30,9 +32,9 @@
     "@angular/cli": "~9.0.0-rc.12",
     "@angular/compiler-cli": "~9.0.0-rc.12",
     "@angular/language-service": "~9.0.0-rc.12",
-    "@types/node": "^12.11.1",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
@@ -44,6 +46,7 @@
     "protractor": "~5.4.3",
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
-    "typescript": "~3.7.4"
+    "typescript": "~3.7.4",
+    "webpack-bundle-analyzer": "^3.6.0"
   }
 }
