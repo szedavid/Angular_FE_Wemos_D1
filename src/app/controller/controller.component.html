@@ -1,7 +1,7 @@
 <div class="container">
   <div class="container">
-    <button class="my-button" [ngClass]="{'led-on':isLedOn}" (click)="toggleLedState()">Switch
-      LED {{isLedOn ? 'OFF' : 'ON'}}</button>
+    <button class="my-button" [ngClass]="{'led-on':ledState}" (click)="toggleLedState()">Switch
+      LED {{ledState ? 'OFF' : 'ON'}}</button>
   </div>
 
   <div class="container">

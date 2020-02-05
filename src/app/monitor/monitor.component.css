@@ -1,11 +1,11 @@
-.container{
+.container {
   flex-direction: column;
   align-items: center;
   padding-right: 10%;
   padding-left: 10%;
 }
 
-.max-setter{
+.max-setter {
   padding-left: 20px;
   padding-right: 20px;
   display: flex;
@@ -13,6 +13,6 @@
   width: 100%;
 }
 
-canvas{
+canvas {
   max-height: 700px;
 }

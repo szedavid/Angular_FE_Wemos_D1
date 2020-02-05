@@ -12,8 +12,8 @@ export class ControllerComponent implements OnInit, OnDestroy {
   private intervalSubscription;
 
   // todo change to ControllerModel
-  public isLedOn;
-  public servoAngle;
+  public ledState = false;
+  public servoAngle = 0;
 
   constructor(private service: MainService) {
   }
@@ -27,16 +27,15 @@ export class ControllerComponent implements OnInit, OnDestroy {
 
   getData() {
     this.service.getControllerData().subscribe((data) => {// console.log(data);
-
-      this.isLedOn = data.ledState;
+      this.ledState = data.ledState;
       this.servoAngle = data.servoAngle;
     });   // todo error
   }
 
 
   toggleLedState() {
-    this.service.setLedState(!this.isLedOn).subscribe((data) => {
-      this.isLedOn = data.ledState;
+    this.service.setLedState(!this.ledState).subscribe((data) => {
+      this.ledState = data.ledState;
       this.servoAngle = data.servoAngle;
     });   // todo error
   }

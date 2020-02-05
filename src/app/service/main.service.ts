@@ -25,11 +25,10 @@ export class MainService {
   // }
 
   setLedState(ledState: boolean): Observable<ControllerModel> {
-    console.log('setled');
-    return this.http.post<ControllerModel>(`${environment.url}/led/${ledState}`, null);
+    return this.http.post<ControllerModel>(`${environment.url}/led?state=${ledState}`, null);
   }
 
-  setServo(angle: number): Observable<ControllerModel> {
-    return this.http.post<ControllerModel>(`${environment.url}/servo/${angle}`, null);
+  setServo(servoAngle: number): Observable<ControllerModel> {
+    return this.http.post<ControllerModel>(`${environment.url}/servo?angle=${servoAngle}`, null);
   }
 }
