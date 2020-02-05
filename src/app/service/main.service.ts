@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ControllerModel, MonitorModel } from '../models/wemos.model';
+import { ControllerModel, MonitorModel } from '../model/wemos.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
