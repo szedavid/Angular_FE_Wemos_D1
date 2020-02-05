@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 
 const LANGUAGE = 'en-US';
+const LOCALSTORAGE_KEY_FOR_ISENABLED = 'isSpeachEnabled';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,11 @@ export class SpeechService {
       // speechSynthesis.onvoiceschanged = PopulateVoices;
       const voices = this.synth.getVoices();  // all available voices
       this.voice = voices.find(value => value.lang === LANGUAGE);
+    }
+
+    const savedValue = localStorage.getItem(LOCALSTORAGE_KEY_FOR_ISENABLED);
+    if (savedValue !== null) {
+      this.isEnabled = JSON.parse(savedValue);
     }
   }
 
@@ -42,5 +48,6 @@ export class SpeechService {
       this.synth.cancel();  // mute immediately
     }
     this.isEnabled = !this.isEnabled;
+    localStorage.setItem(LOCALSTORAGE_KEY_FOR_ISENABLED, String(this.isEnabled));
   }
 }
