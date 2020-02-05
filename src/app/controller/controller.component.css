@@ -1,7 +1,3 @@
-.container {
-  align-items: stretch;
-}
-
 .container .container {
   flex-direction: column;
 }
