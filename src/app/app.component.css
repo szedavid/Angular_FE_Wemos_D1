@@ -1,1 +1,19 @@
+.container {
+  /*required to position the speachButton inside*/
+  position: relative;
+}
 
+#speachButton {
+  position: absolute;
+  right: 50px;
+}
+
+#speachButton:active{
+  box-shadow: inset 5px 5px 10px -2px rgba(0, 0, 0, 0.1);
+  background-color: deepskyblue;
+}
+
+#speachButton.active{
+  box-shadow: inset 5px 5px 10px -2px rgba(0, 0, 0, 0.1);
+  background-color: deepskyblue;
+}
