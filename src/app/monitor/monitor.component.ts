@@ -3,11 +3,21 @@ import { MainService } from '../service/main.service';
 import { ChartDataSets } from 'chart.js';
 import { Color, Label } from 'ng2-charts';      // canvasjs.min.js is 130 K smaller
 import { interval } from 'rxjs';
+import { SpeechService } from '../service/speech.service';
 
 class VoltageLevel {
-  constructor(public value: number, public chartColor: string) {
+  constructor(public value: number, public text: string, public chartColor: string) {
   }
 }
+
+const UPDATE_INTERVAL = 1000;   // timing of data refresh
+
+// voltage levels for chart coloring
+const voltageLevels: VoltageLevel[] = [
+  new VoltageLevel(1, 'low', 'rgba(0,0,255,0.28)'),
+  new VoltageLevel(2, 'normal', 'rgba(0,255,0,0.28)'),
+  new VoltageLevel(3, 'high', 'rgba(255,0,0,0.28)')
+];
 
 @Component({
   selector: 'app-monitor',
@@ -16,18 +26,10 @@ class VoltageLevel {
 })
 export class MonitorComponent implements OnInit, OnDestroy {
 
-  // voltage levels for chart coloring
-  static voltageLevels: VoltageLevel[] = [
-    new VoltageLevel(1, 'rgba(0,0,255,0.28)'),
-    new VoltageLevel(2, 'rgba(0,255,0,0.28)'),
-    new VoltageLevel(3, 'rgba(255,0,0,0.28)')
-  ];
-
-  private UPDATE_INTERVAL = 500;
   public maxDataLength = 50;
   private intervalSubscription;
 
-  private prevVoltageLevel: VoltageLevel = MonitorComponent.voltageLevels[1];
+  private prevVoltageLevel: VoltageLevel = voltageLevels[1];
 
   lineChartData: ChartDataSets[] = [
     {data: [], label: 'Voltage'}
@@ -50,17 +52,22 @@ export class MonitorComponent implements OnInit, OnDestroy {
   lineChartPlugins = [];
   lineChartType = 'line';
 
-  constructor(private service: MainService) {
+  constructor(private mainService: MainService,
+              public speechService: SpeechService) {
   }
 
   ngOnInit(): void {
-    this.intervalSubscription = interval(this.UPDATE_INTERVAL).subscribe(() => {
+    this.speechService.cancel();
+    this.speechService.speak('Here you can see the potentiometer values.');
+
+    this.getData();   // speeding thigns up
+    this.intervalSubscription = interval(UPDATE_INTERVAL).subscribe(() => {
       this.getData();
     });
   }
 
   getData() {
-    this.service.getMonitorData().subscribe((data) => {
+    this.mainService.getMonitorData().subscribe((data) => {
       // console.log(data);
 
       const chartDataArray = this.lineChartData[0].data;
@@ -77,19 +84,21 @@ export class MonitorComponent implements OnInit, OnDestroy {
   }
 
   checkVoltageLevel(lastValue: number) {
+    const SPEAK_START = 'Voltage level is ';
+
     let newVoltageLevel: VoltageLevel;
-    if (lastValue <= MonitorComponent.voltageLevels[0].value) {
-      newVoltageLevel = MonitorComponent.voltageLevels[0];
-    } else if (lastValue > MonitorComponent.voltageLevels[0].value && lastValue < MonitorComponent.voltageLevels[2].value) {
-      newVoltageLevel = MonitorComponent.voltageLevels[1];
-    } else if (lastValue >= MonitorComponent.voltageLevels[2].value) {
-      newVoltageLevel = MonitorComponent.voltageLevels[2];
+    if (lastValue <= voltageLevels[0].value) {
+      newVoltageLevel = voltageLevels[0];
+    } else if (lastValue > voltageLevels[0].value && lastValue < voltageLevels[2].value) {
+      newVoltageLevel = voltageLevels[1];
+    } else if (lastValue >= voltageLevels[2].value) {
+      newVoltageLevel = voltageLevels[2];
     }
 
     if (newVoltageLevel !== this.prevVoltageLevel) {
       this.prevVoltageLevel = newVoltageLevel;
       this.lineChartColors[0].backgroundColor = newVoltageLevel.chartColor;
-      // todo audio
+      this.speechService.speak(`${SPEAK_START} ${newVoltageLevel.text}.`);
     }
   }
 

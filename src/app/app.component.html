@@ -1,5 +1,6 @@
 <div class="container">
   <a class="my-button" routerLink="/monitor" routerLinkActive="my-active">Monitor</a>
   <a class="my-button" routerLink="/controller" routerLinkActive="my-active">Controller</a>
+  <button id=speachButton *ngIf="speechService" class="my-button" [ngClass]="{'active': speechService?.isEnabled}" (click)="speechService.toggle()">{{speechService.isEnabled ? 'Talking' : 'Muted'}}</button>
 </div>
   <router-outlet></router-outlet>

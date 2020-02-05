@@ -12,11 +12,11 @@ body {
   box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.1);
 }
 
-.container .container{
+.container .container {
   border: solid gray 1px;
 }
 
-label{
+label {
   font-size: large;
   font-weight: bold;
   width: 15%;
@@ -45,12 +45,12 @@ label{
   box-shadow: 10px 10px 20px -5px rgba(0, 0, 0, 0.25);
 }
 
-.my-button:active{
+.my-button:active {
   box-shadow: inset 5px 5px 10px -2px rgba(0, 0, 0, 0.1);
   background-color: aquamarine;
 }
 
-.my-active{
+.my-button.my-active {
   box-shadow: inset 5px 5px 10px -2px rgba(0, 0, 0, 0.1);
   background-color: aquamarine;
 }
