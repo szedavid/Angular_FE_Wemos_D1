@@ -25,7 +25,7 @@ export class ControllerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.speechService.cancel();
+    this.speechService.cancel();    // mute previous page
     this.speechService.speak('Here you can control the LED and the servo.');
 
     this.getData();   // speeding thigns up

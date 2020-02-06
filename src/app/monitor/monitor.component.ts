@@ -57,7 +57,7 @@ export class MonitorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.speechService.cancel();
+    this.speechService.cancel();    // mute previous page
     this.speechService.speak('Here you can see the potentiometer values.');
 
     this.getData();   // speeding thigns up

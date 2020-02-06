@@ -28,6 +28,7 @@ export class SpeechService {
   }
 
   speak(text: string) {
+    // this.synth.cancel();
     if (!this.isEnabled) {
       return;
     }
