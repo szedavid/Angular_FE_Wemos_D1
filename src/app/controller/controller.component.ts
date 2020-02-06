@@ -6,6 +6,7 @@ import { SpeechService } from '../service/speech.service';
 const UPDATE_INTERVAL = 1000;   // timing of data refresh
 
 const LED_TEXTS: string[] = ['LED is now turned', 'Lights', 'Now its', 'Turned', 'LED on Wemos D1 mini is'];
+const SERVO_TEXTS: string[] = ['Servo angle is', 'Angle is', 'Servo at', 'Servo is set to'];
 
 @Component({
   selector: 'app-controller',
@@ -64,7 +65,7 @@ export class ControllerComponent implements OnInit, OnDestroy {
   updateServoState(newAngle: number) {
     if (this.servoAngle !== newAngle) {
       this.servoAngle = newAngle;
-      this.speechService.speak(`Servo angle is ${newAngle} degrees.`);
+      this.speechService.speak(`${SERVO_TEXTS[Math.floor(Math.random() * SERVO_TEXTS.length)]} ${newAngle} degrees.`);
     }
   }
 
