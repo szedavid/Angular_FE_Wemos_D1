@@ -7,7 +7,7 @@ import { SpeechService } from './service/speech.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'wemos';
+  title = 'Wemos controller';
 
   constructor(public speechService: SpeechService) {
   }
