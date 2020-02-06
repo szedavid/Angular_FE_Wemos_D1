@@ -4,6 +4,8 @@ import { ControllerModel, MonitorModel } from '../model/wemos.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
+const PATH_VER = `${environment.url}${environment.restversion}`
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,11 +14,11 @@ export class MainService {
   }
 
   getMonitorData(): Observable<MonitorModel> {
-    return this.http.get<MonitorModel>(`${environment.url}/monitor`);
+    return this.http.get<MonitorModel>(`${PATH_VER}/monitor`);
   }
 
   getControllerData(): Observable<ControllerModel> {
-    return this.http.get<ControllerModel>(`${environment.url}/controller`);
+    return this.http.get<ControllerModel>(`${PATH_VER}/controller`);
   }
 
   // setLedState(toOn: boolean) {
@@ -25,10 +27,10 @@ export class MainService {
   // }
 
   setLedState(ledState: boolean): Observable<ControllerModel> {
-    return this.http.post<ControllerModel>(`${environment.url}/led?state=${ledState}`, null);
+    return this.http.post<ControllerModel>(`${PATH_VER}/led?state=${ledState}`, null);
   }
 
   setServo(servoAngle: number): Observable<ControllerModel> {
-    return this.http.post<ControllerModel>(`${environment.url}/servo?angle=${servoAngle}`, null);
+    return this.http.post<ControllerModel>(`${PATH_VER}/servo?angle=${servoAngle}`, null);
   }
 }
