@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 const LANGUAGE = 'en-US';
 const LOCALSTORAGE_KEY_FOR_ISENABLED = 'isSpeachEnabled';
@@ -7,7 +7,7 @@ const LOCALSTORAGE_KEY_FOR_ISENABLED = 'isSpeachEnabled';
   providedIn: 'root'
 })
 export class SpeechService {
-  public isSupported = false; // indicates if the LANGUE is supported by the browser
+  public isSupported = true; // indicates if the LANGUE is supported by the browser
 
   public isEnabled = true; // indicates if the APP is enabled to talk
 
