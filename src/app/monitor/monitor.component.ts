@@ -50,7 +50,7 @@ export class MonitorComponent implements OnInit, OnDestroy {
 
   lineChartLegend = true;
   lineChartPlugins = [];
-  lineChartType = 'line';
+  lineChartType = 'line' as ChartType;
 
   constructor(private mainService: MainService,
               public speechService: SpeechService) {

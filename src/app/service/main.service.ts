@@ -4,7 +4,7 @@ import { ControllerModel, MonitorModel } from '../model/wemos.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
-const PATH_VER = `${environment.url}${environment.restversion}`
+const PATH_VER = `${environment.url}${environment.restversion}`;
 
 @Injectable({
   providedIn: 'root'
