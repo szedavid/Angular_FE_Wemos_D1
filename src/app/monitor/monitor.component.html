@@ -1,4 +1,14 @@
 <div class="container">
+  <div class="max-setter">
+    <label for="maxValCnt">Max. value count: {{maxDataLength}}</label>
+    <input id="maxValCnt"
+           #maxValCnt
+           class="slider" type="range" min="10" max="500"
+           [(ngModel)]=maxDataLength
+           (change)="speechService?.speak('Max. value count is ' + maxValCnt.value)">
+  </div>
+
+
   <canvas baseChart
           [datasets]="lineChartData"
           [labels]="lineChartLabels"

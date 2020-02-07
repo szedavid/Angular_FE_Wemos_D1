@@ -7,20 +7,25 @@ import { MonitorComponent } from './monitor/monitor.component';
 import { ControllerComponent } from './controller/controller.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
+import { GaugeModule } from 'angular-gauge';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     MonitorComponent,
-    ControllerComponent,
+    ControllerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ChartsModule
+    ChartsModule,
+    GaugeModule.forRoot(),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
