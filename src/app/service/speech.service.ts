@@ -7,8 +7,9 @@ const LOCALSTORAGE_KEY_FOR_ISENABLED = 'isSpeachEnabled';
   providedIn: 'root'
 })
 export class SpeechService {
+  public isSupported = false; // indicates if the LANGUE is supported by the browser
 
-  public isEnabled = true;
+  public isEnabled = true; // indicates if the APP is enabled to talk
 
   private synth;
   private voice;
@@ -18,7 +19,13 @@ export class SpeechService {
     if (speechSynthesis !== undefined) {
       // speechSynthesis.onvoiceschanged = PopulateVoices;
       const voices = this.synth.getVoices();  // all available voices
+      console.log(voices);
       this.voice = voices.find(value => value.lang === LANGUAGE);
+      // Edge (before chrome engine) support
+      if (!this.voice) {
+        this.isSupported = false;
+        this.isEnabled = false;
+      }
     }
 
     const savedValue = localStorage.getItem(LOCALSTORAGE_KEY_FOR_ISENABLED);
@@ -28,7 +35,7 @@ export class SpeechService {
   }
 
   speak(text: string) {
-    // this.synth.cancel();
+    // // this.synth.cancel();
     if (!this.isEnabled) {
       return;
     }
