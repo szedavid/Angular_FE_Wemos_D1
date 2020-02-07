@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MainService } from '../service/main.service';
-import { ChartDataSets } from 'chart.js';
+import { ChartDataSets, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';      // canvasjs.min.js is 130 K smaller
 import { interval } from 'rxjs';
 import { SpeechService } from '../service/speech.service';
@@ -50,14 +50,14 @@ export class MonitorComponent implements OnInit, OnDestroy {
 
   lineChartLegend = true;
   lineChartPlugins = [];
-  lineChartType = 'line';
+  lineChartType = 'line' as ChartType;
 
   constructor(private mainService: MainService,
               public speechService: SpeechService) {
   }
 
   ngOnInit(): void {
-    this.speechService.cancel();
+    this.speechService.cancel();    // mute previous page
     this.speechService.speak('Here you can see the potentiometer values.');
 
     this.getData();   // speeding thigns up

@@ -5,7 +5,16 @@
 # You can see what browsers were selected by your queries by running:
 #   npx browserslist
 
-# disabling legacy support to reduce required space on the embedded environment
+# - default browser support (e.g. ES5 and above)
+# - use this config if size is not a problem
+#> 0.5%
+#last 2 versions
+#Firefox ESR
+#not dead
+#not IE 9-11 # For IE 9-11 support, remove 'not'.
+
+# - disabling legacy browser support (support from ES2015) to reduce required space on the embedded environment
+# - use this to reduce required space on the embedded system
 last 3 Chrome versions
 last 3 ChromeAndroid versions
 last 3 Safari versions

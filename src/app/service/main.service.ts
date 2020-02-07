@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ControllerModel, MonitorModel } from '../model/wemos.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { MonitorModel } from '../model/monitor.model';
+import { ControllerModel } from '../model/controller.model';
 
-const PATH_VER = `${environment.url}${environment.restversion}`
+const PATH_VER = `${environment.url}${environment.restversion}`;
 
 @Injectable({
   providedIn: 'root'
