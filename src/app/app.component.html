@@ -1,5 +1,5 @@
 <div class="container">
-  <span *ngIf="mainService?.lastRequestFailed" id="error">Last request failed! Please check connections!</span>
+  <span *ngIf="mainService?.isLastRequestFailed()" id="error">{{mainService.LAST_REQUEST_FAILED_TEXT}}</span>
   <a class="my-button" routerLink="/monitor" routerLinkActive="my-active">Monitor</a>
   <a class="my-button" routerLink="/controller" routerLinkActive="my-active">Controller</a>
   <button id=speachButton *ngIf="speechService && speechService?.isSupported" class="my-button"

@@ -26,7 +26,7 @@ export class ControllerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.speechService.cancel();    // mute previous page
-    this.speechService.speak('Here you can control the LED and the servo.');
+    // this.speechService.speak('Here you can control the LED and the servo.');
 
     this.getData();   // speeding thigns up
     this.intervalSubscription = interval(UPDATE_INTERVAL).subscribe(() => {
@@ -36,26 +36,26 @@ export class ControllerComponent implements OnInit, OnDestroy {
 
   getData() {
     this.mainService.getControllerData().subscribe((data) => {// console.log(data);
-      this.mainService.lastRequestFailed = false;
+      this.mainService.setLastRequestFailed(false);
       this.updateLedState(data.ledState);
       this.updateServoState(data.servoAngle);
-    }, error => this.mainService.lastRequestFailed = true );
+    }, error => this.mainService.setLastRequestFailed(true) );
   }
 
   toggleLedState() {
     this.mainService.setLedState(!this.ledState).subscribe((data) => {
-      this.mainService.lastRequestFailed = false;
+      this.mainService.setLastRequestFailed(false);
       this.updateLedState(data.ledState);
       // this.updateServoState(data.servoAngle);
-    }, error => this.mainService.lastRequestFailed = true);
+    }, error => this.mainService.setLastRequestFailed(true));
   }
 
   setServo(servoAngle) {
     this.mainService.setServo(servoAngle).subscribe((data) => {
-      this.mainService.lastRequestFailed = false;
+      this.mainService.setLastRequestFailed(false);
       // this.updateLedState(data.ledState);
       this.updateServoState(data.servoAngle);
-    }, error => this.mainService.lastRequestFailed = true);
+    }, error => this.mainService.setLastRequestFailed(true));
   }
 
   updateLedState(newState: boolean) {
