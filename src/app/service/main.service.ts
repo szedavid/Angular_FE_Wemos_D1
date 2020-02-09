@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { MonitorModel } from '../model/monitor.model';
 import { ControllerModel } from '../model/controller.model';
+import { catchError } from 'rxjs/operators';
 
 const PATH_VER = `${environment.url}${environment.restversion}`;
 
@@ -13,6 +14,8 @@ const PATH_VER = `${environment.url}${environment.restversion}`;
 export class MainService {
   constructor(private http: HttpClient) {
   }
+
+  public lastRequestFailed = false;
 
   getMonitorData(): Observable<MonitorModel> {
     return this.http.get<MonitorModel>(`${PATH_VER}/monitor`);

@@ -3,6 +3,17 @@
   position: relative;
 }
 
+#error {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  background-color: red;
+  font-size: larger;
+  border-radius: 10px;
+  padding: 10px;
+  border: solid black;
+}
+
 #speachButton {
   position: absolute;
   right: 50px;

@@ -36,23 +36,26 @@ export class ControllerComponent implements OnInit, OnDestroy {
 
   getData() {
     this.mainService.getControllerData().subscribe((data) => {// console.log(data);
+      this.mainService.lastRequestFailed = false;
       this.updateLedState(data.ledState);
       this.updateServoState(data.servoAngle);
-    });   // todo error
+    }, error => this.mainService.lastRequestFailed = true );
   }
 
   toggleLedState() {
     this.mainService.setLedState(!this.ledState).subscribe((data) => {
+      this.mainService.lastRequestFailed = false;
       this.updateLedState(data.ledState);
       // this.updateServoState(data.servoAngle);
-    });   // todo error
+    }, error => this.mainService.lastRequestFailed = true);
   }
 
   setServo(servoAngle) {
     this.mainService.setServo(servoAngle).subscribe((data) => {
+      this.mainService.lastRequestFailed = false;
       // this.updateLedState(data.ledState);
       this.updateServoState(data.servoAngle);
-    });  // todo error
+    }, error => this.mainService.lastRequestFailed = true);
   }
 
   updateLedState(newState: boolean) {

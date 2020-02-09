@@ -69,6 +69,7 @@ export class MonitorComponent implements OnInit, OnDestroy {
   getData() {
     this.mainService.getMonitorData().subscribe((data) => {
       // console.log(data);
+      this.mainService.lastRequestFailed = false;
 
       const chartDataArray = this.lineChartData[0].data;
       this.lineChartLabels.push(data.time);
@@ -80,7 +81,7 @@ export class MonitorComponent implements OnInit, OnDestroy {
 
       this.checkVoltageLevel(data.value);
 
-    });   // todo error
+    }, error => this.mainService.lastRequestFailed = true);
   }
 
   checkVoltageLevel(lastValue: number) {
