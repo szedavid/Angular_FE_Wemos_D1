@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SpeechService } from './service/speech.service';
+import { MainService } from './service/main.service';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,8 @@ import { SpeechService } from './service/speech.service';
 export class AppComponent {
   title = 'Wemos controller';
 
-  constructor(public speechService: SpeechService) {
+  constructor(
+      public mainService: MainService,
+      public speechService: SpeechService) {
   }
 }

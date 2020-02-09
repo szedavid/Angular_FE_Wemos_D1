@@ -58,7 +58,7 @@ export class MonitorComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.speechService.cancel();    // mute previous page
-    this.speechService.speak('Here you can see the potentiometer values.');
+    // this.speechService.speak('Here you can see the potentiometer values.');
 
     this.getData();   // speeding thigns up
     this.intervalSubscription = interval(UPDATE_INTERVAL).subscribe(() => {
@@ -69,6 +69,7 @@ export class MonitorComponent implements OnInit, OnDestroy {
   getData() {
     this.mainService.getMonitorData().subscribe((data) => {
       // console.log(data);
+      this.mainService.setLastRequestFailed(false);
 
       const chartDataArray = this.lineChartData[0].data;
       this.lineChartLabels.push(data.time);
@@ -80,7 +81,7 @@ export class MonitorComponent implements OnInit, OnDestroy {
 
       this.checkVoltageLevel(data.value);
 
-    });   // todo error
+    }, error => this.mainService.setLastRequestFailed(true));
   }
 
   checkVoltageLevel(lastValue: number) {

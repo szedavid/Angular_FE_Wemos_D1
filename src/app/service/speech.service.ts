@@ -40,7 +40,7 @@ export class SpeechService {
   }
 
   speak(text: string) {
-    // // this.synth.cancel();
+    this.synth.cancel();
     if (!this.isEnabled) {
       return;
     }
