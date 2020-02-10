@@ -16,7 +16,7 @@ Copy "dist/gzipped" folders content into "C_WebServer_WemosD1_Mini"-s "WebServer
 then upload it to Wemos D1 mini.
 
 Uploading the data (frontend files) to Wemos D1 mini:
-	- https://www.instructables.com/id/Using-ESP8266-SPIFFS/
+- https://www.instructables.com/id/Using-ESP8266-SPIFFS/
 
 Dont forget to upload the "C_WebServer_WemosD1_Mini/WebServer.ino" script (Arduino C++ file)
 with e.g. Arduino IDE to your Wemos D1 mini to transform it into a webserver
