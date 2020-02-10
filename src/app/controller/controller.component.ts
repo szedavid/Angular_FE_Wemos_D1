@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MainService } from '../service/main.service';
 import { interval } from 'rxjs';
 import { SpeechService } from '../service/speech.service';
+import { ControllerModel } from '../model/controller.model';
 
 const UPDATE_INTERVAL = 1000;   // timing of data refresh
 
@@ -16,9 +17,8 @@ const SERVO_TEXTS: string[] = ['Servo angle is', 'Angle is', 'Servo at', 'Servo 
 export class ControllerComponent implements OnInit, OnDestroy {
   private intervalSubscription;
 
-  // todo change to ControllerModel
-  public ledState = false;
-  public servoAngle = 0;
+  public unknownValues = true;  // only show statuses after received from BE
+  public currentControllerModel: ControllerModel = {ledState: false, servoAngle: 0};
 
   constructor(private mainService: MainService,
               private speechService: SpeechService) {
@@ -35,15 +35,18 @@ export class ControllerComponent implements OnInit, OnDestroy {
   }
 
   getData() {
-    this.mainService.getControllerData().subscribe((data) => {// console.log(data);
+    this.mainService.getControllerData().subscribe((data) => {  // console.log(data);
+      if (this.unknownValues) {
+        this.unknownValues = false;
+      }
       this.mainService.setLastRequestFailed(false);
       this.updateLedState(data.ledState);
       this.updateServoState(data.servoAngle);
-    }, error => this.mainService.setLastRequestFailed(true) );
+    }, error => this.mainService.setLastRequestFailed(true));
   }
 
   toggleLedState() {
-    this.mainService.setLedState(!this.ledState).subscribe((data) => {
+    this.mainService.setLedState(!this.currentControllerModel?.ledState).subscribe((data) => {
       this.mainService.setLastRequestFailed(false);
       this.updateLedState(data.ledState);
       // this.updateServoState(data.servoAngle);
@@ -59,15 +62,15 @@ export class ControllerComponent implements OnInit, OnDestroy {
   }
 
   updateLedState(newState: boolean) {
-    if (this.ledState !== newState) {
-      this.ledState = newState;
+    if (this.currentControllerModel.ledState !== newState) {
+      this.currentControllerModel.ledState = newState;
       this.speechService.speak(`${LED_TEXTS[Math.floor(Math.random() * LED_TEXTS.length)]} ${newState ? 'on' : 'off'}.`);
     }
   }
 
   updateServoState(newAngle: number) {
-    if (this.servoAngle !== newAngle) {
-      this.servoAngle = newAngle;
+    if (this.currentControllerModel.servoAngle !== newAngle) {
+      this.currentControllerModel.servoAngle = newAngle;
       this.speechService.speak(`${SERVO_TEXTS[Math.floor(Math.random() * SERVO_TEXTS.length)]} ${newAngle} degrees.`);
     }
   }

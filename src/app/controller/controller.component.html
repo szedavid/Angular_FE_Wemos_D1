@@ -1,21 +1,21 @@
 <div class="container">
-  <div class="container">
-    <button class="my-button" [ngClass]="{'led-on':ledState}" (click)="toggleLedState()">Switch
-      LED {{ledState ? 'OFF' : 'ON'}}</button>
+  <div *ngIf="!unknownValues" class="container">
+    <button class="my-button" [ngClass]="{'led-on':currentControllerModel.ledState}" (click)="toggleLedState()">Switch
+      LED {{currentControllerModel.ledState ? 'OFF' : 'ON'}}</button>
   </div>
 
-  <div class="container">
+  <div *ngIf="!unknownValues" class="container">
     <mwl-gauge
         [max]="180"
         [dialStartAngle]="0"
         [dialEndAngle]="180"
-        [value]=servoAngle
+        [value]=currentControllerModel.servoAngle
         [animated]="true"
         [animationDuration]="0.25">
     </mwl-gauge>
 
 <!--    no [(ngModel)] used here becouse of periodic received values-->
-    <input #servoSlider type="range" min="0" max="180" [value]=servoAngle
+    <input #servoSlider type="range" min="0" max="180" [value]=currentControllerModel.servoAngle
            (mouseup)="setServo(servoSlider.value)" class="slider">
   </div>
 </div>
